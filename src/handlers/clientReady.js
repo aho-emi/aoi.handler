@@ -10,6 +10,7 @@ const readyLog = async (client, border) => {
   result.push([colors.darkGray+colors.bold+'Owner: '+colors.end+colors.lightGray+(await client.application.fetch()).owner.tag +colors.end])
   result.push([colors.darkGray+colors.bold+"Guilds: "+colors.end+colors.lightGray+client.guilds.cache.size+colors.end])
   result.push([colors.darkGray+colors.bold+"Commands: "+colors.end+colors.lightGray+client.cmd.default.size+colors.end])
+  result.push([colors.darkGray+colors.bold+"Custom Func: "+colors.end+colors.lightGray+client.aoiHandler.customFunctions.length+colors.end])
   result.push([colors.darkGray+colors.bold+"Interaction: "+colors.end+colors.lightGray+Object.values(client.cmd.interaction).reduce((total, group) => total + group.size, 0)+colors.end])
   result.push([colors.darkGray+colors.bold+"Variables: "+colors.end+colors.lightGray+client.variableManager.cache.size+colors.end])
 
