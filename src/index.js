@@ -11,6 +11,42 @@ const { readyLog } = require('./handlers/clientReady.js')
 
 class Handler {
   constructor(client, config, basePath) {
+
+    if (!client?.client) {
+      console.error('"client" is not provided. Provide a valid client in handler.')
+      process.exit()
+    }
+
+      
+    // Colors Validation
+    const colors = Object.keys(require('./colors.js')) //.map(([key, value]) => key)
+
+    const userInput = [];
+
+    function extractValues(obj, ignorePath = "") {
+      for (const key in obj) {
+        const value = obj[key];
+        const currentKey = ignorePath ? `${ignorePath}.${key}` : key; 
+
+        if (typeof value === 'object' && value !== null) {
+          if (currentKey === "border.type") { 
+            extractValues(value, currentKey);
+          }
+        } else {
+          userInput.push(value);
+        }
+      }
+    }
+
+
+    extractValues(config);
+    const invalidColors = userInput.filter(value => !colors.includes(value));
+
+    if (invalidColors.length > 0) {
+      console.error(`Invalid colors provided in config: ${invalidColors.join(', ')}`)
+      process.exit()
+    }
+    
     this.client = client.client;
     this.path = basePath;
     this.config = config

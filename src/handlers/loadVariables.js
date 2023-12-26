@@ -2,9 +2,16 @@ const path = require('path')
 const colors = require('../colors.js');
 const borders = require('../border.js')
 const { table } = require("table");
+const fs = require('fs')
 
 
 const loadVariables = async (client, basePath, filePath, config, border ) => {
+
+  if (!fs.lstatSync(path.resolve(basePath, filePath)).isFile()) {
+    console.log('\u001b[38;2;255;0;0mFailed to Initialize variable handler: Provided path is not a file\u001b[0m')
+    return
+  }
+  
   let v = require(path.resolve(basePath, filePath));
   const output = [[colors[config.title || 'white'] + "Variable Name" + colors.end , colors[config.title || 'white'] + "Type" + colors.end, colors[config.title || 'white'] + "Table" + colors.end]]
   
@@ -31,10 +38,15 @@ const loadVariables = async (client, basePath, filePath, config, border ) => {
 }
 
 const reloadVariables = async (client, basePath, filePath, config, border ) => {
-    delete require.cache[require.resolve(path.resolve(basePath, filePath))];
-    let v = require(path.resolve(basePath, filePath));
 
-    client.variableManager.cache.clear();
+  if (!fs.lstatSync(path.resolve(basePath, filePath)).isFile()) {
+    console.log('\u001b[38;2;255;0;0mFailed to Initialize variable handler: Provided path is not a file\u001b[0m')
+    return
+  }
+  delete require.cache[require.resolve(path.resolve(basePath, filePath))];
+  let v = require(path.resolve(basePath, filePath));
+
+  client.variableManager.cache.clear();
   const output = [[colors[config.title || 'white'] + "Variable Name" + colors.end , colors[config.title || 'white'] + "Type" + colors.end, colors[config.title || 'white'] + "Table" + colors.end]]
 
   for (let variable in v.variables) {

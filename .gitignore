@@ -6,3 +6,4 @@ replit.nix
 test
 .config
 database
+.npmignore

@@ -6,7 +6,7 @@
   "main": "./index.js",
   "files": [
     "src",
-    "LICENSE",
+    "LICENSE"
   ],
   "license": "Apache-2.0",
   "licenses": [

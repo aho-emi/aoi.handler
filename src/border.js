@@ -1,7 +1,6 @@
 const colors = require('../src/colors.js')
 
 // border.js
-
 module.exports = function(color) {
 
   const borders = {

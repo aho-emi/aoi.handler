@@ -25,17 +25,22 @@ function readDirectoryRecursively(directoryPath) {
 
 
 const loadCommands = async (client, basePath, folderPath, config, border) => {
-  
+
   const validTypes = Object.getOwnPropertyNames(client.cmd);
   const dir = path.resolve(basePath, folderPath)
-  
-  let success = 0;
-  let failed = 0;
+
   const commands = [[colors[config?.title || 'white'] + "Command Name" + colors.end, colors[config?.title || 'white'] +"Type" +colors.end,colors[config?.title || 'white'] + "Status" + colors.end, colors[config?.title || 'white'] +"File Name" + colors.end]]
   const failedToWalkIn = [[colors[config?.title || 'white'] +"Directory"+colors.end, colors[config?.title || 'white'] +"File Name"+colors.end]];
   const commandsFailed = [[colors[config?.title || 'white'] +"Command Name" + colors.end,colors[config?.title || 'white'] + "Reason" + colors.end, colors[config?.title || 'white'] +'File Name'+colors.end]]
 
-  const files = readDirectoryRecursively(dir)
+  let files;
+  if (fs.lstatSync(dir).isDirectory()) {
+    files = readDirectoryRecursively(dir)
+  } else {
+    console.log('\u001b[38;2;255;0;0mFailed to Initialize command handler: Provided path is not a directory\u001b[0m')
+    return
+  }
+  
   for (let file of files) {
     if (file.endsWith('.js')) {
       let command;
@@ -52,11 +57,12 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
       }
 
       command = Array.isArray(command) ? command : [command];
+      try {
       if (command) {
       for (let cmd of command) {
-        if (!cmd.type) cmd.type = 'default'
-        if (cmd.type == 'default' && !cmd.name) {
-          commandsFailed.push(['Undefined', 'Name not privided', colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
+        if (!cmd?.type) cmd.type = 'default'
+        if (cmd?.type != 'interaction' && !cmd?.name) {
+          commandsFailed.push([colors[config?.commandName || 'white'] + 'Undefined' + colors.end, colors[config?.reason || 'white'] + 'Name not provided' +colors.end, colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
         } else {
         const valid = validTypes.includes(cmd.type);
         if (valid && cmd.code && (cmd.type == 'interaction' ? cmd.prototype : true) ) {
@@ -69,7 +75,10 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
          }
         }
       }
-      
+    } catch (e) {
+
+    }
+
     }
   }
 
@@ -80,7 +89,7 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
         header: {
           alignment: "center",
           content:colors[config?.header || 'white']+ colors.underline + "Command Loader\nFailed to walk in File" + colors.end,
-          
+
         },
         singleLine: true,
         columns: [{ width: 35}, { width: 14, alignment: "center"}],
@@ -114,7 +123,7 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
     }),
   );
 
-  
+
 }
 
 // Reloader
@@ -125,7 +134,6 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
           client.cmd[key].clear()
       } else if ( value instanceof Object && key == 'interaction') {
           Object.entries(client.cmd[key]).forEach(([k, v])=> {
-            console.log(k)
             if ( v.size > 0) {
               client.cmd[key][k].clear()
             }
@@ -138,13 +146,18 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
   const validTypes = Object.getOwnPropertyNames(client.cmd);
   const dir = path.resolve(basePath, folderPath)
 
-  let success = 0;
-  let failed = 0;
   const commands = [[colors[config?.title || 'white'] + "Command Name" + colors.end, colors[config?.title || 'white'] +"Type" +colors.end,colors[config?.title || 'white'] + "Status" + colors.end, colors[config?.title || 'white'] +"File Name" + colors.end]]
   const failedToWalkIn = [[colors[config?.title || 'white'] +"Directory"+colors.end, colors[config?.title || 'white'] +"File Name"+colors.end]];
   const commandsFailed = [[colors[config?.title || 'white'] +"Command Name" + colors.end,colors[config?.title || 'white'] + "Reason" + colors.end, colors[config?.title || 'white'] +'File Name'+colors.end]]
 
-  const files = readDirectoryRecursively(dir)
+  let files;
+  if (fs.lstatSync(dir).isDirectory()) {
+    files = readDirectoryRecursively(dir)
+  } else {
+    console.log('\u001b[38;2;255;0;0mFailed to Initialize command handler: Provided path is not a directory\u001b[0m')
+    return
+  }
+  
   for (let file of files) {
     if (file.endsWith('.js')) {
       delete require.cache[require.resolve(file)];
@@ -162,11 +175,12 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
       }
 
       command = Array.isArray(command) ? command : [command];
+      try {
       if (command) {
       for (let cmd of command) {
         if (!cmd.type) cmd.type = 'default'
-        if (cmd.type == 'default' && !cmd.name) {
-          commandsFailed.push(['Undefined', 'Name not privided', colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
+        if (cmd.type != 'interaction' && !cmd.name) {
+        commandsFailed.push([colors[config?.commandName || 'white'] + 'Undefined' + colors.end, colors[config?.reason || 'white'] + 'Name not provided' +colors.end, colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
         } else {
         const valid = validTypes.includes(cmd.type);
         if (valid && cmd.code && (cmd.type == 'interaction' ? cmd.prototype : true) ) {
@@ -178,6 +192,9 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
           }
          }
         }
+      }
+      } catch (e) {
+
       }
     }
   }
