@@ -66,18 +66,6 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
         } else {
         const valid = validTypes.includes(cmd.type);
         if (valid && cmd.code && (cmd.type == 'interaction' ? cmd.prototype : true) ) {
-            if (cmd.name.includes("$")) {
-              cmd.name = (
-                await client.functionManager.interpreter(
-                  client,
-                  {},
-                  [],
-                  { code: cmd.name },
-                  client.db,
-                  true
-                )
-              )?.code;
-            }
             client.cmd.createCommand(cmd)
             commands.push([colors[config?.commandName || 'white'] + cmd.name + colors.end, colors[config?.type || 'white'] + (cmd.type == 'interaction' ? cmd.prototype : cmd.type) + colors.end,colors[config?.status || 'white'] + "✔" + colors.end, colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
           } else {
@@ -196,18 +184,6 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
         } else {
         const valid = validTypes.includes(cmd.type);
         if (valid && cmd.code && (cmd.type == 'interaction' ? cmd.prototype : true) ) {
-            if (cmd.name.includes("$")) {
-              cmd.name = (
-                await client.functionManager.interpreter(
-                  client,
-                  {},
-                  [],
-                  { code: cmd.name },
-                  client.db,
-                  true
-                )
-              )?.code;
-            }
             client.cmd.createCommand(cmd)
             commands.push([colors[config?.commandName || 'white'] + cmd.name + colors.end, colors[config?.type || 'white'] + (cmd.type == 'interaction' ? cmd.prototype : cmd.type) + colors.end,colors[config?.status || 'white'] + "✔" + colors.end, colors[config?.file || 'white'] +(ff[ff.length -1]).slice(0, -3) + colors.end])
           } else {
