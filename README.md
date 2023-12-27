@@ -1,4 +1,4 @@
-# <h1 align="center"><strong>AOI.HANDLER</strong></h1>
+# <h1 align="center"><strong>AOI.JS-HANDLER</strong></h1>
 
 <p align="center">
 <img src="https://media.discordapp.net/attachments/1022533781040672839/1137241711614115910/Untitled96_20230805101633.png" alt="Logo" width="150" height="150">
@@ -6,19 +6,19 @@
 
 
 <p>
-  Aoi.handler is a package built for aoi.js to make it easy for users to load their command, events, custom functions and statuses.
+  aoi.js-handler is a package built for aoi.js to make it easy for users to load their command, events, custom functions and statuses.
 </p>
 <h2 align="center"><strong>Installation</strong></h2>
 
 ```js {3} copy
-npm install aoi.handler
+npm install aoi.js-handler
 ```
 <h2 align="center"><strong>Setup</strong></h2>
 
 ```js {3} copy
 // Import necessary modules
 const { AoiClient } = require("aoi.js");
-const { Handler } = require("aoi.handler")
+const { Handler } = require("aoi.js-handler")
 
 // Create a new AoiClient instance
 const client = new AoiClient({

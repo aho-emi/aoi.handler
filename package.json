@@ -1,5 +1,5 @@
 {
-  "name": "aoi.handler",
+  "name": "aoi.js-handler",
   "version": "1.0.1",
   "description": "A powerful tool for aoi.js: discord bot framework to handle commands",
   "author": "ahoemi",
