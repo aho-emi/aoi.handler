@@ -137,7 +137,6 @@ const loadFunctions = async (client, basePath, folderPath, config, border) => {
 
 //reload
 const reloadFunctions = async (client, basePath, folderPath, config, border) => {
-  client.aoiHandler.customFunctions = new Array()
   const validTypes = ['djs', 'aoijs'];
   const dir = path.resolve(basePath, folderPath);
 
