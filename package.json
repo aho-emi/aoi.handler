@@ -5,6 +5,7 @@
   "author": "ahoemi",
   "main": "./index.js",
   "files": [
+    "index.js",
     "src",
     "LICENSE"
   ],
@@ -31,8 +32,6 @@
     "functions"
   ],
   "dependencies": {
-    "@types/node": "^18.0.6",
-    "node-fetch": "^3.2.6",
     "table": "^6.8.1"
   },
   "directories": {

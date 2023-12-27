@@ -97,6 +97,32 @@ class Handler {
               this.config.functionLoader, this.config.border
             )
             data.result = 'Reloaded every functions!'
+          } else if (type.toLowerCase() == "all") {
+            reloadCommands(
+              this.client,
+              this.path,
+              this.client.aoiHandler.paths.get('command'),
+              this.config.commandLoader, this.config.border
+            )
+            reloadStatuses(
+              this.client,
+              this.path,
+              this.client.aoiHandler.paths.get('status'),
+              this.config.statusLoader, this.config.border
+            )
+            reloadVariables(
+              this.client,
+              this.path,
+              this.client.aoiHandler.paths.get('variable'),
+              this.config.variableLoader, this.config.border
+            )
+            reloadFunctions(
+              this.client,
+              this.path,
+              this.client.aoiHandler.paths.get('function'),
+              this.config.functionLoader, this.config.border
+            )
+            data.result = 'Reloaded every loadets!'
           }
 
           return {
