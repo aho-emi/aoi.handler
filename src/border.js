@@ -37,7 +37,7 @@ module.exports = function(color) {
 
       bodyLeft:  colors[color || "white"] +`║` + colors.end,
       bodyRight:  colors[color || "white"] +`║` + colors.end,
-      bodyJoin:  colors[color || "white"] +`║` + colors.end,
+      bodyJoin:  colors[color || "white"] +`│` + colors.end,
 
       joinBody: colors[color || "white"] + `─` + colors.end,
       joinLeft:  colors[color || "white"] +`╟`,
