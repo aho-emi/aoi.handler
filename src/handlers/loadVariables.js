@@ -56,6 +56,7 @@ const reloadVariables = async (client, basePath, filePath, config, border ) => {
   }
   client.variables(v.variables, v.table || 'main')
 
+  if ( output.length > 1 ) {
   console.log(
     table(output, {
       border: borders(border.color)[border.type || 'double'],
@@ -68,6 +69,7 @@ const reloadVariables = async (client, basePath, filePath, config, border ) => {
       columns: [{ width:25 }, { width: 10, alignment: "center"}, {width: 11, alignment: "center"}],
     }),
   );
+  }
 
 }
 
