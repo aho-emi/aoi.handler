@@ -63,6 +63,7 @@ class Handler {
         type: "djs",
         code: async d => {
           const data = d.util.aoiFunc(d);
+          if (data.err) return d.error(data.err);
           const [type] = data.inside.splits; 
 
           if (type.toLowerCase() === "commands") {
@@ -122,7 +123,7 @@ class Handler {
               this.client.aoiHandler.paths.get('function'),
               this.config.functionLoader, this.config.border
             )
-            data.result = 'Reloaded every loadets!'
+            data.result = 'Reloaded every loaders!'
           }
 
           return {

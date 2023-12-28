@@ -111,6 +111,7 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
     );
   }
 
+  if ( commands.length > 1) {
   console.log(
     table(commands, {
       border: borders(border?.color || 'white')[border?.type || 'double'],
@@ -122,7 +123,7 @@ const loadCommands = async (client, basePath, folderPath, config, border) => {
       columns: [{ width: 15 }, { width: 12, alignment: "center"} ,{width: 6, alignment: "center"}, {width: 10, alignment: "center"}],
     }),
   );
-
+  }
 
 }
 
@@ -228,6 +229,7 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
     );
   }
 
+  if ( commands.length > 1) {
   console.log(
     table(commands, {
       border: borders(border?.color || 'white')[border?.type || 'double'],
@@ -239,7 +241,7 @@ const reloadCommands = async (client, basePath, folderPath, config, border) => {
       columns: [{ width: 15 }, { width: 12, alignment: "center"} ,{width: 6, alignment: "center"}, {width: 10, alignment: "center"}],
     }),
   );
-
+  }
 
 }
 

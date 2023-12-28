@@ -140,7 +140,6 @@ const reloadStatuses = async (client, basePath, filePath, config, border) => {
           }
           status?.URL ? result.URL = status?.URL : null;
           client.status(result)
-          console.log(client.statuses, client.user.presence)
           statuses.push([colors[config?.name || 'white']+result.name  + colors.end, colors[config?.type || 'white']+(status?.type).toUpperCase()  + colors.end, colors[config?.status || 'white']+result.status + colors.end , colors[config?.time || 'white']+result.time + 's' + colors.end])
         } else {
           const error = !validStatus ? 'Invalid Status' : !validType ? 'Invalid Type' : ''

@@ -121,7 +121,7 @@ const loadFunctions = async (client, basePath, folderPath, config, border) => {
       }),
     );
   }
-
+if ( functions.length > 1) {
   console.log(
     table(functions, {
       border: borders(border?.color || 'white')[border?.type || 'double'],
@@ -133,6 +133,7 @@ const loadFunctions = async (client, basePath, folderPath, config, border) => {
       columns: [{ width: 24 }, { width: 11, alignment: "center"} ,{width: 11, alignment: "center"}]
     }),
   );
+}
 };
 
 //reload
@@ -248,6 +249,7 @@ const reloadFunctions = async (client, basePath, folderPath, config, border) => 
     );
   }
 
+  if ( functions.length > 1) {
   console.log(
     table(functions, {
       border: borders(border?.color || 'white')[border?.type || 'double'],
@@ -259,6 +261,7 @@ const reloadFunctions = async (client, basePath, folderPath, config, border) => 
       columns: [{ width: 24 }, { width: 11, alignment: "center"} ,{width: 11, alignment: "center"}]
     }),
   );
+  }
 };
 
 module.exports = {
